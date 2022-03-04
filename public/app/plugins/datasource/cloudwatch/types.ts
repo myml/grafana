@@ -367,3 +367,47 @@ export interface MetricQuery {
   maxDataPoints?: number;
   intervalMs?: number;
 }
+
+export enum VariableQueryType {
+  Regions = 'regions',
+  Namespaces = 'namespaces',
+  Metrics = 'metrics',
+  DimensionKeys = 'dimensionKeys',
+  DimensionValues = 'dimensionValues',
+  EBSVolumeIDs = 'ebsVolumeIDs',
+  EC2InstanceAttributes = 'ec2InstanceAttributes',
+  ResourceArns = 'resourceARNs',
+  Statistics = 'statistics',
+}
+
+export interface VariableQuery extends DataQuery {
+  selectedQueryType: string;
+  selectedNamespace: string;
+  selectedRegion: string;
+  selectedMetric: string;
+  selectedDimensionKey: string;
+  filters: string;
+  instanceID: string;
+  attributeName: string;
+  resourceType: string;
+  tags: string;
+}
+
+export interface VariableQueryData {
+  selectedQueryType: string;
+  selectedNamespace: string;
+  selectedRegion: string;
+  selectedMetric: string;
+  selectedDimensionKey: string;
+  filters: string;
+  instanceID: string;
+  attributeName: string;
+  resourceType: string;
+  tags: string;
+
+  namespaces: SelectableValue[];
+  regions: SelectableValue[];
+  metrics: SelectableValue[];
+  dimensionKeys: SelectableValue[];
+  loading: boolean;
+}

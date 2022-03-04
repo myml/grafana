@@ -59,6 +59,7 @@ import {
 import { addDataLinksToLogsResponse } from './utils/datalinks';
 import { runWithRetry } from './utils/logsRetry';
 import { increasingInterval } from './utils/rxjs/increasingInterval';
+import { CloudWatchVariableSupport } from './variables';
 
 const DS_QUERY_ENDPOINT = '/api/ds/query';
 
@@ -122,6 +123,7 @@ export class CloudWatchDatasource
     this.logsTimeout = instanceSettings.jsonData.logsTimeout || '15m';
     this.sqlCompletionItemProvider = new SQLCompletionItemProvider(this, this.templateSrv);
     this.metricMathCompletionItemProvider = new MetricMathCompletionItemProvider(this, this.templateSrv);
+    this.variables = new CloudWatchVariableSupport(this);
   }
 
   query(options: DataQueryRequest<CloudWatchQuery>): Observable<DataQueryResponse> {

@@ -264,6 +264,7 @@ export function SelectBase<T>({
     };
   }
 
+  console.log('nyah', value);
   return (
     <>
       <ReactSelectComponent
