@@ -15,9 +15,16 @@ const singleResourceGroupSelectionURI = '/subscriptions/def-456/resourceGroups/d
 const singleResourceSelectionURI =
   '/subscriptions/def-456/resourceGroups/dev-3/providers/Microsoft.Compute/virtualMachines/db-serverproviders/Microsoft.Compute/virtualMachines/db-server';
 
-describe('AzureMonitor ResourcePicker', () => {
-  const noop: any = () => {};
+const noop: any = () => {};
+const defaultProps = {
+  templateVariables: [],
+  resourceURI: noResourceURI,
+  onCancel: noop,
+  onApply: noop,
+  selectableEntryTypes: [],
+};
 
+describe('AzureMonitor ResourcePicker', () => {
   beforeEach(() => {
     window.HTMLElement.prototype.scrollIntoView = function () {};
   });
@@ -29,15 +36,7 @@ describe('AzureMonitor ResourcePicker', () => {
         getResourcesForResourceGroup: jest.fn(),
       });
       await act(() => {
-        render(
-          <ResourcePicker
-            templateVariables={[]}
-            resourcePickerData={resourePickerDataMock}
-            resourceURI={noResourceURI}
-            onCancel={noop}
-            onApply={noop}
-          />
-        );
+        render(<ResourcePicker {...defaultProps} resourcePickerData={resourePickerDataMock} />);
       });
 
       await waitFor(() => expect(screen.getByText('Primary Subscription')).toBeInTheDocument());
@@ -57,11 +56,9 @@ describe('AzureMonitor ResourcePicker', () => {
       await act(async () => {
         render(
           <ResourcePicker
-            templateVariables={[]}
+            {...defaultProps}
             resourcePickerData={resourePickerDataMock}
             resourceURI={singleSubscriptionSelectionURI}
-            onCancel={noop}
-            onApply={noop}
           />
         );
       });
@@ -83,11 +80,9 @@ describe('AzureMonitor ResourcePicker', () => {
       await act(async () => {
         render(
           <ResourcePicker
-            templateVariables={[]}
+            {...defaultProps}
             resourcePickerData={resourePickerDataMock}
             resourceURI={singleResourceGroupSelectionURI}
-            onCancel={noop}
-            onApply={noop}
           />
         );
       });
@@ -112,11 +107,9 @@ describe('AzureMonitor ResourcePicker', () => {
       await act(async () => {
         render(
           <ResourcePicker
-            templateVariables={[]}
+            {...defaultProps}
             resourcePickerData={resourePickerDataMock}
             resourceURI={singleResourceSelectionURI}
-            onCancel={noop}
-            onApply={noop}
           />
         );
       });
