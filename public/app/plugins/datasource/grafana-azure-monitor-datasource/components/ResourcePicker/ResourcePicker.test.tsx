@@ -1,4 +1,5 @@
 import { act, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import ResourcePicker from '.';
@@ -144,7 +145,8 @@ describe('AzureMonitor ResourcePicker', () => {
         );
       });
 
-      screen.getByText('Primary Subscription');
+      const button = screen.getByText('Primary Subscription');
+      userEvent.click(button);
     });
   });
 });
